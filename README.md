@@ -1,50 +1,108 @@
-# React + TypeScript + Vite
+# React Application with Global State Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains a simple React application built with Vite. The app demonstrates global state management using the Context API, with functionality to increment a counter and showcase React's hot module replacement (HMR).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Global State Management**: The application uses the Context API to manage a global state across components.
+- **Vite Integration**: Leverages Vite for fast development and hot module replacement.
+- **TypeScript Support**: Written in TypeScript for enhanced type safety.
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. [Installation](#installation)
+2. [Project Structure](#project-structure)
+3. [Usage](#usage)
+4. [Contributing](#contributing)
+5. [License](#license)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
+
+2. Install dependencies using [pnpm](https://pnpm.io):
+
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+The application will be available at `http://localhost:5173`.
+
+## Project Structure
+
+```
+.
+├── src
+│   ├── App.tsx
+│   ├── context
+│   │   ├── global.context.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── index.css
+│   ├── index.tsx
+│   ├── App.css
+├── vite.config.ts
+├── package.json
+└── README.md
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Key Files
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **`index.tsx`**: Entry point of the application where the root component is rendered.
+- **`App.tsx`**: Main component that displays the counter functionality.
+- **`global.context.tsx`**: Contains the implementation of the global context and provider.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Usage
+
+### Counter Functionality
+
+The app includes a button to increment a counter stored in the global context. The current count is displayed dynamically on the button.
+
+### Editing the App
+
+To see hot module replacement in action, modify the `App.tsx` file. The changes will be reflected in the browser without a full reload.
+
+## How to Use Global Context
+
+The `global.context.tsx` file defines a `GlobalProvider` that wraps the app and provides access to the global state.
+
+- **Provider**:
+  Wrap your application with `GlobalProvider` in `index.tsx`:
+
+  ```tsx
+  <StrictMode>
+    <GlobalProvider>
+      <App />
+    </GlobalProvider>
+  </StrictMode>
+  ```
+
+- **Context Hook**:
+  Use the `useGlobalContext` hook to access the state and updater function:
+  ```tsx
+  const { value, setValue } = useGlobalContext();
+  ```
+
+## Contributing
+
+Contributions are welcome! Feel free to submit issues or pull requests.
+
+1. Fork the repository.
+2. Create a new branch for your feature: `git checkout -b feature-name`.
+3. Commit your changes: `git commit -m 'Add new feature'`.
+4. Push to the branch: `git push origin feature-name`.
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
